@@ -1,15 +1,18 @@
 # frozen_string_literal: true
 
+require 'csv'
 puts 'Event Manager Initialized!'
 
 # contents = File.read('event_attendees.csv')
 # puts contents
 
-lines = File.readlines('event_attendees.csv')
-lines.each_with_index do |line, index|
-  # Skip the header line
-  next if index.zero?
-
+lines = CSV.open(
+  'event_attendees.csv',
+  headers: true,
+  header_converters: :symbol
+)
+lines.each do |row|
   # Print attendees' first names
-  puts line.split(',')[2]
+  name = row[:first_name]
+  puts name
 end
