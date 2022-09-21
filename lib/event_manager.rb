@@ -3,8 +3,9 @@
 require 'csv'
 puts 'Event Manager Initialized!'
 
-# contents = File.read('event_attendees.csv')
-# puts contents
+def clean_zipcode(zipcode)
+  zipcode.to_s.rjust(5, '0')[0..4]
+end
 
 lines = CSV.open(
   'event_attendees.csv',
@@ -14,5 +15,6 @@ lines = CSV.open(
 lines.each do |row|
   # Print attendees' first names
   name = row[:first_name]
-  puts name
+  zipcode = clean_zipcode(row[:zipcode])
+  puts "#{name} #{zipcode}"
 end
